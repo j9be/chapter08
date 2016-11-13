@@ -13,7 +13,7 @@ apply plugin: 'idea'
 apply plugin: 'spring-boot'
 
 jar {
-    baseName = 'packt-ch07-microservice'
+    baseName = 'packt-ch08-microservice'
     version =  '1.0.0'
 }
 
