@@ -1,6 +1,7 @@
-package packt.java9.by.example.mybusiness.productinformation;
+package packt.java9.by.example.mybusiness.bulkorder;
 
-import java.net.URI;
+import java.lang.annotation.Annotation;
+import java.util.List;
 
 public class ProductInformation {
     private String id;
@@ -8,6 +9,15 @@ public class ProductInformation {
     private String description;
     private final double size[] = new double[3];
     private double weight;
+    private List<Class<? extends Annotation>> check;
+
+    public List<Class<? extends Annotation>> getCheck() {
+        return check;
+    }
+
+    public void setCheck(List<Class<? extends Annotation>> check) {
+        this.check = check;
+    }
 
     public void setId(String id) {
         this.id = id;

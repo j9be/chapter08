@@ -1,4 +1,4 @@
-package packt.java9.by.example.mybusiness.productinformation;
+package packt.java9.by.example.mybusiness.bulkorder;
 
 import java.util.List;
 
