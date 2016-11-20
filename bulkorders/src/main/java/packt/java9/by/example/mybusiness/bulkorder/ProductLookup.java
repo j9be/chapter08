@@ -1,6 +1,6 @@
 package packt.java9.by.example.mybusiness.bulkorder;
 
-import packt.java9.by.example.mybusiness.bulkorder.pobeans.ProductInformation;
+import packt.java9.by.example.mybusiness.bulkorder.dtos.ProductInformation;
 
 import java.util.List;
 

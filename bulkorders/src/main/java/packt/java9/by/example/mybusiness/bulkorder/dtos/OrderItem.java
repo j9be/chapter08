@@ -1,4 +1,4 @@
-package packt.java9.by.example.mybusiness.bulkorder.pobeans;
+package packt.java9.by.example.mybusiness.bulkorder.dtos;
 
 public class OrderItem {
     private double amount;

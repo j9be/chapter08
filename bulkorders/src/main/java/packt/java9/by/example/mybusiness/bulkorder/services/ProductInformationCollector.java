@@ -4,10 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
-import packt.java9.by.example.mybusiness.bulkorder.pobeans.ProductInformation;
+import packt.java9.by.example.mybusiness.bulkorder.dtos.ProductInformation;
 import packt.java9.by.example.mybusiness.bulkorder.ProductLookup;
-import packt.java9.by.example.mybusiness.bulkorder.pobeans.Order;
-import packt.java9.by.example.mybusiness.bulkorder.pobeans.OrderItem;
+import packt.java9.by.example.mybusiness.bulkorder.dtos.Order;
+import packt.java9.by.example.mybusiness.bulkorder.dtos.OrderItem;
 
 import java.util.HashMap;
 import java.util.Map;

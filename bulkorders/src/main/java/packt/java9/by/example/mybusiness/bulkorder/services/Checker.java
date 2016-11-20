@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
 import packt.java9.by.example.mybusiness.bulkorder.ConsistencyChecker;
-import packt.java9.by.example.mybusiness.bulkorder.pobeans.Order;
-import packt.java9.by.example.mybusiness.bulkorder.pobeans.OrderItem;
-import packt.java9.by.example.mybusiness.bulkorder.pobeans.ProductInformation;
+import packt.java9.by.example.mybusiness.bulkorder.dtos.Order;
+import packt.java9.by.example.mybusiness.bulkorder.dtos.OrderItem;
+import packt.java9.by.example.mybusiness.bulkorder.dtos.ProductInformation;
 
 import java.lang.annotation.Annotation;
 import java.util.Arrays;

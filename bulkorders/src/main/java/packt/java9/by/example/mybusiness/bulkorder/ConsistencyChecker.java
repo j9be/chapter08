@@ -1,6 +1,6 @@
 package packt.java9.by.example.mybusiness.bulkorder;
 
-import packt.java9.by.example.mybusiness.bulkorder.pobeans.Order;
+import packt.java9.by.example.mybusiness.bulkorder.dtos.Order;
 
 /**
  * Checks an order that the items in it are consistent.

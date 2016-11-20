@@ -2,8 +2,8 @@ package packt.java9.by.example.mybusiness.bulkorder.checkers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import packt.java9.by.example.mybusiness.bulkorder.pobeans.Order;
-import packt.java9.by.example.mybusiness.bulkorder.pobeans.OrderItem;
+import packt.java9.by.example.mybusiness.bulkorder.dtos.Order;
+import packt.java9.by.example.mybusiness.bulkorder.dtos.OrderItem;
 
 import java.util.Arrays;
 import java.util.Objects;

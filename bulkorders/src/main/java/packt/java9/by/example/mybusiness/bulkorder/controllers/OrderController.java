@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import packt.java9.by.example.mybusiness.bulkorder.pobeans.Order;
-import packt.java9.by.example.mybusiness.bulkorder.pobeans.OrderConfirmation;
+import packt.java9.by.example.mybusiness.bulkorder.dtos.Confirmation;
+import packt.java9.by.example.mybusiness.bulkorder.dtos.Order;
 import packt.java9.by.example.mybusiness.bulkorder.services.Checker;
 
 @RestController
@@ -20,33 +20,11 @@ public class OrderController {
     }
 
     @RequestMapping("/order")
-    public OrderConfirmation getProductInformation(@RequestBody Order order) {
+    public Confirmation getProductInformation(@RequestBody Order order) {
         if (checker.isConsistent(order)) {
-            if (submitOrderIsOk(order)) {
-                return oderOK(order);
-            } else {
-                return orderRefused(order);
-            }
+            return Confirmation.accepted(order);
         } else {
-            return orderInconsistent(order);
+            return Confirmation.refused(order);
         }
-    }
-
-
-    private OrderConfirmation oderOK(Order order) {
-        OrderConfirmation oc = new OrderConfirmation(order, false, false);
-        return oc;
-    }
-
-    private OrderConfirmation orderRefused(Order order) {
-        return new OrderConfirmation(order, false, true);
-    }
-
-    private OrderConfirmation orderInconsistent(Order order) {
-        return new OrderConfirmation(order, true, false);
-    }
-
-    private boolean submitOrderIsOk(Order order) {
-        return true;
     }
 }

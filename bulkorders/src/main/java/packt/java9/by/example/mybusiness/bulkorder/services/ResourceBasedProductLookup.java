@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.stereotype.Service;
-import packt.java9.by.example.mybusiness.bulkorder.pobeans.ProductInformation;
+import packt.java9.by.example.mybusiness.bulkorder.dtos.ProductInformation;
 import packt.java9.by.example.mybusiness.bulkorder.ProductLookup;
 
 import java.io.IOException;
