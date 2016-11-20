@@ -1,4 +1,4 @@
-package packt.java9.by.example.mybusiness.bulkorder;
+package packt.java9.by.example.mybusiness.bulkorder.pobeans;
 
 import java.lang.annotation.Annotation;
 import java.util.List;
@@ -65,5 +65,9 @@ public class ProductInformation {
         emptyProductInformation.getSize()[0] = 0;
         emptyProductInformation.getSize()[1] = 0;
         emptyProductInformation.getSize()[2] = 0;
+    }
+
+    public boolean isValid(){
+        return this != emptyProductInformation;
     }
 }

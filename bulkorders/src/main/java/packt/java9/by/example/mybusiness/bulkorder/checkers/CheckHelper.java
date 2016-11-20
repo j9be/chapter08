@@ -1,7 +1,7 @@
 package packt.java9.by.example.mybusiness.bulkorder.checkers;
 
-import packt.java9.by.example.mybusiness.bulkorder.Order;
-import packt.java9.by.example.mybusiness.bulkorder.OrderItem;
+import packt.java9.by.example.mybusiness.bulkorder.pobeans.Order;
+import packt.java9.by.example.mybusiness.bulkorder.pobeans.OrderItem;
 
 public class CheckHelper {
     final Order order;

@@ -1,7 +1,15 @@
 package packt.java9.by.example.mybusiness.bulkorder.checkers;
 
-/**
- * Created by verhasp on 2016. 11. 20..
- */
-public class Tuple {
+public class Tuple<R, S> {
+    final public R r;
+    final public S s;
+
+    public Tuple(R r, S s) {
+        this.r = r;
+        this.s = s;
+    }
+
+    public static <R, S> Tuple tuple(R r, S s) {
+        return new Tuple(r, s);
+    }
 }

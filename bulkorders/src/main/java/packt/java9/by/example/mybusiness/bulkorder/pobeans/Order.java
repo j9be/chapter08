@@ -1,4 +1,4 @@
-package packt.java9.by.example.mybusiness.bulkorder;
+package packt.java9.by.example.mybusiness.bulkorder.pobeans;
 
 import java.util.List;
 

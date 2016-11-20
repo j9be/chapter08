@@ -1,7 +1,6 @@
-package packt.java9.by.example.mybusiness.bulkorder;
+package packt.java9.by.example.mybusiness.bulkorder.pobeans;
 
-import java.util.LinkedList;
-import java.util.List;
+import packt.java9.by.example.mybusiness.bulkorder.pobeans.Order;
 
 public class OrderConfirmation {
     private final Order order;

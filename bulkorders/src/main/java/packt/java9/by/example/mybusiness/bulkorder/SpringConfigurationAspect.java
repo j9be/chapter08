@@ -5,6 +5,7 @@ import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
+import packt.java9.by.example.mybusiness.bulkorder.pobeans.ProductInformation;
 
 @Configuration
 @Aspect

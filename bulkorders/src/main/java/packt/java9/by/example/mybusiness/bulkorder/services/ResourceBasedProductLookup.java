@@ -1,4 +1,4 @@
-package packt.java9.by.example.mybusiness.bulkorder;
+package packt.java9.by.example.mybusiness.bulkorder.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -6,7 +6,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.stereotype.Service;
-import packt.java9.by.example.mybusiness.bulkorder.ProductInformation;
+import packt.java9.by.example.mybusiness.bulkorder.pobeans.ProductInformation;
+import packt.java9.by.example.mybusiness.bulkorder.ProductLookup;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -59,6 +60,7 @@ public class ResourceBasedProductLookup implements ProductLookup {
         if (products.containsKey(id)) {
             return products.get(id);
         } else {
+            log.error("There is no product for id {}",id);
             return ProductInformation.emptyProductInformation;
         }
     }
