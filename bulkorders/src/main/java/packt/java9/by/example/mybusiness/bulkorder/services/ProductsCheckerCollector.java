@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @Component
 @RequestScope
 public class ProductsCheckerCollector {
-    private static Logger log = LoggerFactory.getLogger(ProductsCheckerCollector.class);
+    private static final Logger log = LoggerFactory.getLogger(ProductsCheckerCollector.class);
 
     private final ProductInformationCollector pic;
 
@@ -34,9 +34,7 @@ public class ProductsCheckerCollector {
             if (pi != null && pi.getCheck() != null) {
                 for (Class<? extends Annotation> check : pi.getCheck()) {
                     log.info("Product {} is annotated with class {}", pi.getId(), pi.getCheck().get(0));
-                    for (final Class<? extends Annotation> klass : pi.getCheck()) {
-                        annotations.add(klass);
-                    }
+                    annotations.addAll(pi.getCheck());
                 }
             } else {
                 log.info("Product {} has no annotation", pi.getId());
@@ -48,7 +46,7 @@ public class ProductsCheckerCollector {
     public Set<Class<? extends Annotation>> getProductAnnotations(Order order) {
         Map<OrderItem, ProductInformation> piMap = pic.collectProductInformation(order);
         return order.getItems().stream()
-                .map(t -> piMap.get(t))
+                .map(piMap::get)
                 .filter(pi -> pi != null)
                 .peek(pi -> {
                     if (pi.getCheck() == null) {

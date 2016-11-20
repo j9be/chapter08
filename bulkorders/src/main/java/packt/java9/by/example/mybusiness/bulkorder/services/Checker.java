@@ -19,7 +19,7 @@ import java.util.Set;
 @Component()
 @RequestScope
 public class Checker {
-    Logger log = LoggerFactory.getLogger(Checker.class);
+    private static final Logger log = LoggerFactory.getLogger(Checker.class);
 
     private final Collection<ConsistencyChecker> checkers;
     private final ProductInformationCollector productInformationCollector;

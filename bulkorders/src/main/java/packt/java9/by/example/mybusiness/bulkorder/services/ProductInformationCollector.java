@@ -18,7 +18,7 @@ import static packt.java9.by.example.mybusiness.bulkorder.checkers.Tuple.tuple;
 @Component
 @RequestScope
 public class ProductInformationCollector {
-    private static Logger log = LoggerFactory.getLogger(ProductsCheckerCollector.class);
+    private static final Logger log = LoggerFactory.getLogger(ProductsCheckerCollector.class);
     private final ProductLookup lookup;
 
     public ProductInformationCollector(ProductLookup lookup) {

@@ -10,7 +10,7 @@ import packt.java9.by.example.mybusiness.bulkorder.dtos.ProductInformation;
 @Configuration
 @Aspect
 public class SpringConfigurationAspect {
-    private static Logger log = LoggerFactory.getLogger("AUDIT_LOG");
+    private static final Logger log = LoggerFactory.getLogger("AUDIT_LOG");
 
     @Around("execution(* byId(..))")
     public ProductInformation byIdQueryLogging(ProceedingJoinPoint jp) throws Throwable {

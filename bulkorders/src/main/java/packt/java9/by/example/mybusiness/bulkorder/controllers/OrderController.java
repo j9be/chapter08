@@ -12,7 +12,7 @@ import packt.java9.by.example.mybusiness.bulkorder.services.Checker;
 
 @RestController
 public class OrderController {
-    private Logger log = LoggerFactory.getLogger((OrderController.class));
+    private static final Logger log = LoggerFactory.getLogger((OrderController.class));
     private final Checker checker;
 
     public OrderController(@Autowired Checker checker) {

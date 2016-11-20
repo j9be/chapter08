@@ -6,8 +6,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.stereotype.Service;
-import packt.java9.by.example.mybusiness.bulkorder.dtos.ProductInformation;
 import packt.java9.by.example.mybusiness.bulkorder.ProductLookup;
+import packt.java9.by.example.mybusiness.bulkorder.dtos.ProductInformation;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,12 +15,11 @@ import java.util.*;
 
 @Service
 public class ResourceBasedProductLookup implements ProductLookup {
-    private static Logger log = LoggerFactory.getLogger(ResourceBasedProductLookup.class);
+    private static final Logger log = LoggerFactory.getLogger(ResourceBasedProductLookup.class);
 
     private ProductInformation fromJSON(InputStream jsonStream) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        ProductInformation pi = mapper.readValue(jsonStream,ProductInformation.class);
-        return pi;
+        return mapper.readValue(jsonStream, ProductInformation.class);
     }
 
 
@@ -45,8 +44,6 @@ public class ResourceBasedProductLookup implements ProductLookup {
     private void loadResource(Resource resource) throws IOException {
         final int dotPos = resource.getFilename().lastIndexOf('.');
         final String id = resource.getFilename().substring(0, dotPos);
-        Properties properties = new Properties();
-        properties.load(resource.getInputStream());
         final ProductInformation pi = fromJSON(resource.getInputStream());
         pi.setId(id);
         products.put(id, pi);
@@ -60,7 +57,7 @@ public class ResourceBasedProductLookup implements ProductLookup {
         if (products.containsKey(id)) {
             return products.get(id);
         } else {
-            log.error("There is no product for id {}",id);
+            log.error("There is no product for id {}", id);
             return ProductInformation.emptyProductInformation;
         }
     }
