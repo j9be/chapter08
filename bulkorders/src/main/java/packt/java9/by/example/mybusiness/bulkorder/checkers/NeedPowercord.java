@@ -7,8 +7,7 @@ import packt.java9.by.example.mybusiness.bulkorder.ConsistencyChecker;
 import packt.java9.by.example.mybusiness.bulkorder.dtos.Order;
 
 @Component
-@ParameteredPoweredDevice("1956")
-@ParameteredPoweredDevice({"1968", "2018"})
+@PoweredDevice
 public class NeedPowercord implements ConsistencyChecker {
     private static final Logger log = LoggerFactory.getLogger(NeedPowercord.class);
 

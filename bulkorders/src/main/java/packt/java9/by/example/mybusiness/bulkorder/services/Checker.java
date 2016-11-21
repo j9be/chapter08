@@ -22,26 +22,36 @@ public class Checker {
     private static final Logger log = LoggerFactory.getLogger(Checker.class);
 
     private final Collection<ConsistencyChecker> checkers;
-    private final ProductInformationCollector productInformationCollector;
-    private final ProductsCheckerCollector productsCheckerCollector;
+    private final ProductInformationCollector piCollector;
+    private final ProductsCheckerCollector pcCollector;
 
     public Checker(@Autowired Collection<ConsistencyChecker> checkers,
-                   @Autowired ProductInformationCollector productInformationCollector,
-                   @Autowired ProductsCheckerCollector productsCheckerCollector
+                   @Autowired ProductInformationCollector piCollector,
+                   @Autowired ProductsCheckerCollector pcCollector
     ) {
         this.checkers = checkers;
-        this.productInformationCollector = productInformationCollector;
-        this.productsCheckerCollector = productsCheckerCollector;
+        this.piCollector = piCollector;
+        this.pcCollector = pcCollector;
     }
 
-    public boolean _isConsistent(Order order) {
-        Map<OrderItem, ProductInformation> map = productInformationCollector.collectProductInformation(order);
+    public boolean isConsistent(Order order) {
+        Map<OrderItem, ProductInformation> map =
+                piCollector.collectProductInformation(order);
         if (map == null) {
             return false;
         }
-        Set<Class<? extends Annotation>> annotations = productsCheckerCollector.getProductAnnotations(order);
-        for (ConsistencyChecker checker : checkers) {
-            for (Annotation annotation : checker.getClass().getAnnotations()) {
+        Set<Class<? extends Annotation>> annotations =
+                pcCollector.getProductAnnotations(order);
+        for (ConsistencyChecker checker :
+                checkers) {
+            for (Annotation annotation :
+                    checker.getClass().getAnnotations()) {
+                log.info("annotation {}", annotation);
+                log.info("annotation class {}", annotation.getClass());
+                Arrays.stream(annotation.getClass().getInterfaces()[0].getInterfaces()).forEach(
+                        t -> log.info("annotation implemented interfaces {}", t)
+                );
+
                 log.info("Looking at class {} if its annotation {} is in set {}", checker.getClass(), annotation.annotationType(), annotations);
                 if (annotations.contains(annotation.annotationType())) {
                     if (checker.isInconsistent(order)) {
@@ -62,12 +72,14 @@ public class Checker {
      * @param order
      * @return true if the order is consistent by all checkers
      */
-    public boolean isConsistent(Order order) {
-        Map<OrderItem, ProductInformation> map = productInformationCollector.collectProductInformation(order);
+    public boolean _isConsistent(Order order) {
+        Map<OrderItem, ProductInformation> map =
+                piCollector.collectProductInformation(order);
         if (map == null) {
             return false;
         }
-        final Set<Class<? extends Annotation>> annotations = productsCheckerCollector.getProductAnnotations(order);
+        final Set<Class<? extends Annotation>> annotations =
+                pcCollector.getProductAnnotations(order);
         return !checkers.stream().filter(checker ->
                 Arrays.stream(checker.getClass().getAnnotations())
                         .filter(annotation -> annotations.contains(annotation.annotationType()))

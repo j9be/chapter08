@@ -3,6 +3,7 @@ package packt.java9.by.example.mybusiness.bulkorder.services;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.stereotype.Service;
@@ -47,6 +48,8 @@ public class ResourceBasedProductLookup implements ProductLookup {
         final ProductInformation pi = fromJSON(resource.getInputStream());
         pi.setId(id);
         products.put(id, pi);
+        if( pi.getCheck() != null )
+        log.info("Product {} check is {}",id,pi.getCheck().get(0));
     }
 
     private static final List<String> noProducts = new LinkedList<>();
