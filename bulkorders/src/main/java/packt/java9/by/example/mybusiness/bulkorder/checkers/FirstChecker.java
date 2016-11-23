@@ -9,7 +9,7 @@ import packt.java9.by.example.mybusiness.bulkorder.dtos.Order;
 @Component
 public class FirstChecker implements ConsistencyChecker {
     private static final Logger log = LoggerFactory.getLogger(FirstChecker.class);
-    @Override
+
     public boolean isInconsistent(Order order) {
         log.info("FirstChecker checking order {}", order);
         return false;

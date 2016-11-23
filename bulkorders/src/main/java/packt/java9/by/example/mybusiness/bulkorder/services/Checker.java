@@ -11,6 +11,9 @@ import packt.java9.by.example.mybusiness.bulkorder.dtos.OrderItem;
 import packt.java9.by.example.mybusiness.bulkorder.dtos.ProductInformation;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
@@ -54,7 +57,8 @@ public class Checker {
 
                 log.info("Looking at class {} if its annotation {} is in set {}", checker.getClass(), annotation.annotationType(), annotations);
                 if (annotations.contains(annotation.annotationType())) {
-                    if (checker.isInconsistent(order)) {
+
+                    if (isInconsistent(checker, order)) {
                         return false;
                     }
                     log.info("It does and now breaking");
@@ -64,6 +68,43 @@ public class Checker {
             }
         }
         return true;
+    }
+
+    private boolean isInconsistent(ConsistencyChecker checker, Order order) {
+        final Method method = getSingleDeclaredPublicMethod(checker);
+        if (method == null) {
+            log.error(
+                    "The checker {} has zero or more than one methods",
+                    checker.getClass());
+            return false;
+
+        }
+        final boolean inconsistent;
+        try {
+            inconsistent = (boolean) method.invoke(checker, order);
+        } catch (InvocationTargetException |
+                IllegalAccessException |
+                ClassCastException e) {
+            log.error("Calling the method {} on class {} threw exception",
+                    method, checker.getClass());
+            log.error("The exception is ", e);
+            return false;
+        }
+        return inconsistent;
+    }
+
+    private Method getSingleDeclaredPublicMethod(ConsistencyChecker checker) {
+        final Method[] methods = checker.getClass().getDeclaredMethods();
+        Method singleMethod = null;
+        for (Method method : methods) {
+            if (Modifier.isPublic(method.getModifiers())) {
+                if (singleMethod != null) {
+                    return null;
+                }
+                singleMethod = method;
+            }
+        }
+        return singleMethod;
     }
 
     /**
@@ -83,7 +124,7 @@ public class Checker {
         return !checkers.stream().filter(checker ->
                 Arrays.stream(checker.getClass().getAnnotations())
                         .filter(annotation -> annotations.contains(annotation.annotationType()))
-                        .filter(x -> checker.isInconsistent(order))
+//                        .filter(x -> checker.isInconsistent(order))
                         .findAny()
                         .isPresent())
                 .findAny()

@@ -14,5 +14,5 @@ public interface ConsistencyChecker {
      * @return true if the order is not consistent. false means that the method did not find inconsistency, but does not
      * necessarily mean that it is inconsistent.
      */
-    boolean isInconsistent(Order order);
+    //boolean isInconsistent(Order order);
 }

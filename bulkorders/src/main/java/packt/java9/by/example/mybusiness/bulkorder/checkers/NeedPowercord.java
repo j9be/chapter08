@@ -11,10 +11,12 @@ import packt.java9.by.example.mybusiness.bulkorder.dtos.Order;
 public class NeedPowercord implements ConsistencyChecker {
     private static final Logger log = LoggerFactory.getLogger(NeedPowercord.class);
 
-    @Override
+
     public boolean isInconsistent(Order order) {
         log.info("checking order {}", order);
         CheckHelper helper = new CheckHelper(order);
         return !helper.containsOneOf("126", "127", "128");
     }
+
+    private void z(){}
 }
