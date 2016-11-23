@@ -11,6 +11,7 @@ import packt.java9.by.example.mybusiness.bulkorder.dtos.OrderItem;
 import packt.java9.by.example.mybusiness.bulkorder.dtos.ProductInformation;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -70,6 +71,7 @@ public class Checker {
     }
 
     private boolean isInconsistent(ConsistencyChecker checker, Order order) {
+        setValueInChecker(checker);
         final Method method = getSingleDeclaredMethod(checker);
         if (method == null) {
             log.error(
@@ -130,4 +132,19 @@ public class Checker {
     }
 
 
+    private void setValueInChecker(ConsistencyChecker checker) {
+        Field[] fields = checker.getClass().getDeclaredFields();
+        for( final Field field : fields ){
+            log.info("Checking field {}.{}",checker.getClass().getCanonicalName(),field.getName());
+            if( field.getName().equals("setValue") && field.getType().equals(boolean.class)){
+                field.setAccessible(true);
+                try {
+                    log.info("Setting field to true");
+                    field.set(checker,true);
+                } catch (IllegalAccessException e) {
+                    log.info("SNAFU");
+                }
+            }
+        }
+    }
 }
