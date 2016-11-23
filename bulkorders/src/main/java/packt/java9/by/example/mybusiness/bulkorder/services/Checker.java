@@ -13,7 +13,6 @@ import packt.java9.by.example.mybusiness.bulkorder.dtos.ProductInformation;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
@@ -71,7 +70,7 @@ public class Checker {
     }
 
     private boolean isInconsistent(ConsistencyChecker checker, Order order) {
-        final Method method = getSingleDeclaredPublicMethod(checker);
+        final Method method = getSingleDeclaredMethod(checker);
         if (method == null) {
             log.error(
                     "The checker {} has zero or more than one methods",
@@ -81,6 +80,7 @@ public class Checker {
         }
         final boolean inconsistent;
         try {
+            method.setAccessible(true);
             inconsistent = (boolean) method.invoke(checker, order);
         } catch (InvocationTargetException |
                 IllegalAccessException |
@@ -93,16 +93,14 @@ public class Checker {
         return inconsistent;
     }
 
-    private Method getSingleDeclaredPublicMethod(ConsistencyChecker checker) {
+    private Method getSingleDeclaredMethod(ConsistencyChecker checker) {
         final Method[] methods = checker.getClass().getDeclaredMethods();
         Method singleMethod = null;
         for (Method method : methods) {
-            if (Modifier.isPublic(method.getModifiers())) {
-                if (singleMethod != null) {
-                    return null;
-                }
-                singleMethod = method;
+            if (singleMethod != null) {
+                return null;
             }
+            singleMethod = method;
         }
         return singleMethod;
     }
