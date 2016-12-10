@@ -12,6 +12,7 @@ import packt.java9.by.example.mybusiness.bulkorder.dtos.ProductInformation;
 import java.lang.annotation.Annotation;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -47,13 +48,13 @@ public class ProductsCheckerCollector {
         Map<OrderItem, ProductInformation> piMap = pic.collectProductInformation(order);
         return order.getItems().stream()
                 .map(piMap::get)
-                .filter(pi -> pi != null)
+                .filter(Objects::nonNull)
                 .peek(pi -> {
                     if (pi.getCheck() == null) {
                         log.info("Product {} has no annotation", pi.getId());
                     }
                 })
-                .filter(pi -> pi.getCheck() != null)
+                .filter(ProductInformation::hasCheck)
                 .peek(pi -> log.info("Product {} is annotated with class {}", pi.getId(), pi.getCheck()))
                 .flatMap(pi -> pi.getCheck().stream())
                 .collect(Collectors.toSet());

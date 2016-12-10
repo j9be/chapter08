@@ -15,6 +15,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Predicate;
+import java.util.stream.IntStream;
 
 @Component()
 @RequestScope
@@ -48,7 +50,8 @@ public class Checker {
                     checker.getClass().getAnnotations()) {
                 log.info("annotation {}", annotation);
                 log.info("annotation class {}", annotation.getClass());
-                Arrays.stream(annotation.getClass().getInterfaces()[0].getInterfaces()).forEach(
+                Arrays.stream(annotation.getClass()
+                        .getInterfaces()).forEach(
                         t -> log.info("annotation implemented interfaces {}", t)
                 );
 
@@ -80,14 +83,13 @@ public class Checker {
         }
         final Set<Class<? extends Annotation>> annotations =
                 pcCollector.getProductAnnotations(order);
-        return !checkers.stream().filter(checker ->
+        Predicate<Annotation> annotationIsNeeded = annotation ->
+                annotations.contains(annotation.annotationType());
+        Predicate<ConsistencyChecker> productIsConsistent = checker ->
                 Arrays.stream(checker.getClass().getAnnotations())
-                        .filter(annotation -> annotations.contains(annotation.annotationType()))
-                        .filter(x -> checker.isInconsistent(order))
-                        .findAny()
-                        .isPresent())
-                .findAny()
-                .isPresent();
+                        .filter(annotationIsNeeded)
+                        .anyMatch(x -> checker.isInconsistent(order));
+        return !checkers.stream().anyMatch(productIsConsistent);
     }
 
 

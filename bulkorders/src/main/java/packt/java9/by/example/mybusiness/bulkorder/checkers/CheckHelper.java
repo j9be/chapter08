@@ -31,10 +31,11 @@ public class CheckHelper {
     }
 
     public boolean containsOneOf(String... ids) {
-        return order.getItems().stream()
+        return order.getItems().parallelStream()
                 .map(OrderItem::getProductId)
-                .flatMap(itemId -> Arrays.stream(ids).map(id -> tuple(itemId, id)))
+                .flatMap(itemId -> Arrays.stream(ids)
+                        .map(id -> tuple(itemId, id)))
                 .filter(t -> Objects.equals(t.s, t.r))
-                .collect(Collectors.toSet()).size() > 0;
+                .collect(Collectors.counting()) > 0;
     }
 }

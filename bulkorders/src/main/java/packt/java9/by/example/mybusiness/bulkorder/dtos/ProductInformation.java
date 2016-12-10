@@ -15,6 +15,10 @@ public class ProductInformation {
         return check;
     }
 
+    public boolean hasCheck(){
+        return check != null;
+    }
+
     public void setCheck(List<Class<? extends Annotation>> check) {
         this.check = check;
     }
