@@ -15,6 +15,16 @@ public class ProductInformation {
         return check;
     }
 
+    private String checkScript;
+
+    public String getCheckScript() {
+        return checkScript;
+    }
+
+    public void setCheckScript(String checkScript) {
+        this.checkScript = checkScript;
+    }
+
     public boolean hasCheck(){
         return check != null;
     }

@@ -19,17 +19,6 @@ public class CheckHelper {
         this.order = order;
     }
 
-    public boolean _containsOneOf(String... ids) {
-        for (final OrderItem item : order.getItems()) {
-            for (final String id : ids) {
-                if (item.getProductId().equals(id)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
     public boolean containsOneOf(String... ids) {
         return order.getItems().parallelStream()
                 .map(OrderItem::getProductId)

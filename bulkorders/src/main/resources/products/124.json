@@ -1,9 +1,7 @@
 {
   "id" : "124",
   "title": "Desk Lamp",
-  "check": [
-    "packt.java9.by.example.mybusiness.bulkorder.checkers.PoweredDevice"
-  ],
+  "checkScript" : "powered_device",
   "description": "this is a lamp that stands on my desk",
   "weight": "600",
   "size": [ "300", "20", "2" ]

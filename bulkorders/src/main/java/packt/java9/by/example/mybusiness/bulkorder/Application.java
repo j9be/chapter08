@@ -9,7 +9,7 @@ import packt.java9.by.example.mybusiness.ClassLister;
                 packt.java9.by.example.mybusiness.SpringScanBase.class)
 public class Application {
     public static void main(String[] args) {
-        new ClassLister().listClasses();
+        //new ClassLister().listClasses();
         SpringApplication.run(Application.class, args);
     }
 }
