@@ -62,9 +62,12 @@ public class Checker {
                 annotations.contains(annotation.annotationType());
         Predicate<ConsistencyChecker> productIsConsistent = checker ->
                 Arrays.stream(checker.getClass().getAnnotations())
+                        .parallel()
+                        .unordered()
                         .filter(annotationIsNeeded)
                         .anyMatch(x -> checker.isInconsistent(order));
-        final boolean checkersSayConsistent = !checkers.stream().anyMatch(productIsConsistent);
+        final boolean checkersSayConsistent = !checkers.stream().
+                anyMatch(productIsConsistent);
         final boolean scriptsSayConsistent =
                 !map.values().
                         parallelStream().
